@@ -1,5 +1,4 @@
-"""Проверить модель и все LTL-свойства: python verify.py."""
-
+import json
 import os
 from pathlib import Path
 import re
@@ -10,8 +9,6 @@ import tempfile
 
 
 ROOT = Path(__file__).resolve().parent
-SPIN = Path(os.path.expandvars(r"%LOCALAPPDATA%/Programs/Spin/spin.exe"))
-CC = Path("C:/msys64/ucrt64/bin/gcc.exe")
 
 
 def run(command: list[str], folder: Path, log_name: str) -> str:
@@ -40,7 +37,7 @@ def run(command: list[str], folder: Path, log_name: str) -> str:
     return result.stdout
 
 
-def verify(name: str, command: list[str], folder: Path) -> tuple[str, str]:
+def verify(name: str, command: list[str], folder: Path, spin: Path) -> tuple[str, str]:
     """Отличить успех, нарушение свойства и незавершённую проверку."""
     try:
         output = run(command, folder, name + ".log")
@@ -68,7 +65,7 @@ def verify(name: str, command: list[str], folder: Path) -> tuple[str, str]:
             saved_trail = folder / (name + ".trail")
             trail.rename(saved_trail)
             run(
-                [str(SPIN), "-t", "-p", "-g", "-l", "-k", saved_trail.name,
+                [str(spin), "-t", "-p", "-g", "-l", "-k", saved_trail.name,
                  "properties.pml"],
                 folder, name + "_trace.log",
             )
@@ -87,8 +84,6 @@ def verify(name: str, command: list[str], folder: Path) -> tuple[str, str]:
 
 def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
-    # GCC нужны DLL из его каталога, в том числе при запуске дочерних программ.
-    os.environ["PATH"] = str(CC.parent) + os.pathsep + os.environ.get("PATH", "")
     results = ROOT / "verification_results"
     results.mkdir(exist_ok=True)
     folder = Path(tempfile.mkdtemp(prefix="run_", dir=results))
@@ -96,8 +91,13 @@ def main() -> int:
 
     try:
         # Каждый запуск получает свои копии исходников, логи и контрпримеры.
-        for filename in ("modbus.pml", "properties.pml"):
+        for filename in ("modbus.pml", "properties.pml", "config.json"):
             shutil.copy2(ROOT / filename, folder / filename)
+        config = json.loads((folder / "config.json").read_text(encoding="utf-8"))
+        spin = Path(os.path.expandvars(config["spin"]))
+        cc = Path(os.path.expandvars(config["cc"]))
+        # GCC нужны DLL из его каталога и при запуске дочерних программ.
+        os.environ["PATH"] = str(cc.parent) + os.pathsep + os.environ.get("PATH", "")
         properties = re.findall(
             r"^ltl\s+(\w+)\s*\{",
             (folder / "properties.pml").read_text(encoding="utf-8"), re.MULTILINE,
@@ -105,35 +105,35 @@ def main() -> int:
         if not properties:
             raise RuntimeError("В properties.pml не найдены LTL-свойства")
 
-        print(run([str(SPIN), "-V"], folder, "spin_version.log").strip())
-        run([str(CC), "--version"], folder, "gcc_version.log")
-        run([str(SPIN), "-a", "properties.pml"], folder, "generate.log")
+        print(run([str(spin), "-V"], folder, "spin_version.log").strip())
+        run([str(cc), "--version"], folder, "gcc_version.log")
+        run([str(spin), "-a", "properties.pml"], folder, "generate.log")
         run(
-            [str(CC), "-O2", "-DCOLLAPSE", "-DSAFETY", "-DNOCLAIM",
+            [str(cc), "-O2", "-DCOLLAPSE", "-DSAFETY", "-DNOCLAIM",
              "-o", "pan_safety.exe", "pan.c"], folder, "compile_safety.log",
         )
         run(
-            [str(CC), "-O2", "-DCOLLAPSE", "-o", "pan_ltl.exe", "pan.c"],
+            [str(cc), "-O2", "-DCOLLAPSE", "-o", "pan_ltl.exe", "pan.c"],
             folder, "compile_ltl.log",
         )
-    except (OSError, RuntimeError) as error:
+    except (OSError, RuntimeError, ValueError, KeyError, TypeError) as error:
         message = f"ERROR: подготовка проверки не удалась: {error}"
         print(message)
         (folder / "report.txt").write_text(message + "\n", encoding="utf-8")
         return 2
 
     checks = [
-        ("structure", [str(folder / "pan_safety.exe"), "-m10000", "-w22", "-q", "-b"])
+        ("structure", [str(folder / "pan_safety.exe"), "-m1000000", "-w22", "-q", "-b"])
     ]
     for name in properties:
         checks.append((name, [str(folder / "pan_ltl.exe"), "-a", "-N", name,
-                              "-m10000", "-w22", "-b"]))
+                              "-m1000000", "-w22", "-b"]))
 
     counts = {"PASS": 0, "FAIL": 0, "ERROR": 0}
     lines = []
     for number, (name, command) in enumerate(checks, start=1):
         print(f"\nПроверка {number}/{len(checks)}: {name}", flush=True)
-        status, detail = verify(name, command, folder)
+        status, detail = verify(name, command, folder, spin)
         counts[status] += 1
         line = f"[{status}] {name}: {detail}"
         lines.append(line)

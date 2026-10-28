@@ -1,0 +1,11 @@
+# Результаты проверок, включая сгенерированный C-код и программы.
+/verification_results/
+/pan
+/pan.*
+/pan_*.exe
+/_spin_nvr.tmp
+/*.trail
+
+# Служебные файлы Python.
+__pycache__/
+*.py[cod]
