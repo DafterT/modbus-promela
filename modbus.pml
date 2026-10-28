@@ -81,24 +81,25 @@ proctype Master()
             :: slave_address = 3
             :: slave_address = 4        // Отсутствующий Slave
             fi;
-            // Подготавливаем корректную запись FC06
+            // Выбираем регистр: 0 и 1 существуют, 2 — ошибка
             if
             :: register_address = 0
             :: register_address = 1
+            :: register_address = 2
             fi;
             if
             :: register_value = 1
             :: register_value = 2
             fi;
-            function_code = FC06;
-            crc_ok = true;
-
-            // Оставляем запрос корректным или добавляем одну ошибку.
+            // Выбираем функцию
             if
-            :: skip                     // Без ошибки
-            :: crc_ok = false           // Ошибка CRC
-            :: register_address = 2     // Несуществующий регистр
+            :: function_code = FC06     // Поддерживаемая функция
             :: function_code = FC03     // Неподдерживаемая функция
+            fi;
+            // Выбираем CRC
+            if
+            :: crc_ok = true
+            :: crc_ok = false
             fi;
 
             printf("Master: request slave=%d FC=%d register=%d value=%d CRC=%d\n",
@@ -169,6 +170,7 @@ proctype Slave(byte slave_id) // slave_id - собственный адрес у
         if
         // Пакет предназначается нам
         :: (request_slave_address == slave_id || request_slave_address == 0) ->
+            // Проверяем CRC, затем функцию, затем регистр: первая ошибка останавливает проверки.
             if
             // crc корректно
             :: request_crc_ok ->
