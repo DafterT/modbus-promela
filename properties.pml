@@ -23,9 +23,7 @@
         holding_register_0[s] == previous_register_0[s]))
 // Запрос не тронул лишние регистры у slave с address = s
 #define isolated(s) ( \
-    // Если это не наш адрес, тогда изменений быть не должно
     (slave_address == s || (!slave_write_performed[s] && unchanged(s))) && \
-    // Если это наш адрес, тогда изменилось только то, что задано
     (slave_address != s || \
         (register_address == 0 && holding_register_1[s] == previous_register_1[s]) || \
         (register_address == 1 && holding_register_0[s] == previous_register_0[s]) || \
