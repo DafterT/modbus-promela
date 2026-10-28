@@ -1,0 +1,5 @@
+spin -a properties.pml
+gcc -O2 -DCOLLAPSE -DSAFETY -DNOCLAIM -o pan_safety.exe pan.c
+gcc -O2 -DCOLLAPSE -o pan_ltl.exe pan.c
+pan_safety.exe -m1000000 -w22 -q -b
+pan_ltl.exe -a -N p01_crc_ignored -m1000000 -w22 -b

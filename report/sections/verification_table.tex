@@ -1,0 +1,29 @@
+\begin{table}[H]
+\centering
+\caption{Результаты завершенных проверок модели}
+\label{tab:verification}
+{\small\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\linewidth}{@{}Xrrrc@{}}
+\toprule
+Проверка & Состояний & Глубина & Время, с & Итог \\
+\midrule
+\code{structure} & 14\,552\,302 & 110\,960 & 43,1 & PASS \\
+\code{p01_crc_ignored} & 14\,552\,302 & 194\,839 & 62,3 & PASS \\
+\code{p02_absent_slave} & 14\,552\,302 & 194\,839 & 69,3 & PASS \\
+\code{p03_broadcast_silent} & 14\,552\,302 & 194\,839 & 74,7 & PASS \\
+\code{p04_broadcast_written} & 14\,552\,302 & 194\,839 & 74,0 & PASS \\
+\code{p05_addressed_write} & 14\,552\,302 & 194\,839 & 64,7 & PASS \\
+\code{p06_write_isolation} & 14\,552\,302 & 194\,839 & 70,4 & PASS \\
+\code{p07_normal_response} & 14\,552\,302 & 194\,839 & 67,0 & PASS \\
+\code{p08_illegal_function} & 14\,552\,302 & 194\,839 & 72,4 & PASS \\
+\code{p09_illegal_register} & 14\,552\,302 & 194\,839 & 66,9 & PASS \\
+\code{p10_write_authorized} & 14\,552\,302 & 194\,839 & 69,2 & PASS \\
+\code{p11_single_response} & 14\,552\,302 & 194\,839 & 68,7 & PASS \\
+\code{p12_transaction_progress}\textsuperscript{*} & 28\,849\,450 & 194\,839 & 214,0 & PASS \\
+\code{p13_completion_clean} & 14\,552\,302 & 194\,839 & 63,4 & PASS \\
+\code{p14_invalid_broadcast} & 14\,552\,302 & 194\,839 & 62,0 & PASS \\
+\bottomrule
+\end{tabularx}}
+\par\smallskip
+{\footnotesize * Свойство p12 проверено отдельным запуском без ограничения времени Python-обертки.}
+\end{table}

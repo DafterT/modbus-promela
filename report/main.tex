@@ -1,32 +1,52 @@
-% Шаблон отчёта ИТМО. Сборка: latexmk (PDF — main.pdf, служебные файлы — build/).
 \documentclass{itmo-report}
+\usepackage{placeins}
 
-% Заполните данные новой работы.
-\title{Название работы}
+\title{Моделирование и верификация в среде SPIN}
 \author{Д.\,Л.~Симоновский}
 \group{P4219}
-\supervisor{} % Фамилия и инициалы преподавателя.
-\discipline{} % Название дисциплины.
-\labnumber{}  % Номер лабораторной работы, если нужен.
-% \reportdate{28}{октября} % День и месяц; год по умолчанию текущий.
+\labnumber{2}
+\supervisor{В.\,Ю.~Пинкевич}
+\discipline{Механизмы надежности и безопасности вычислительных систем}
+\reportdate{28}{октября}
+\reportyear{2026}
 
 \setlength{\emergencystretch}{3em}
+\setcounter{tocdepth}{2}
+\lstdefinelanguage{Promela}{
+  morekeywords={active,assert,atomic,bool,break,byte,chan,do,else,false,fi,
+    if,init,len,ltl,mtype,od,of,printf,proctype,run,skip,true,U},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]"
+}
+\lstset{basicstyle=\ttfamily\footnotesize,numbers=none,
+  xleftmargin=0pt,framexleftmargin=0pt,keywordstyle=\bfseries,
+  stringstyle=\color{black},commentstyle=\color{gray}}
+\newcommand{\code}[1]{\texttt{\small\detokenize{#1}}}
+\newcommand{\listing}[3][Promela]{\par\noindent
+  \begin{minipage}{\linewidth}
+  \lstinputlisting[language=#1,caption={#3}]{listings/#2}
+  \end{minipage}\par}
+\newcommand{\scheme}[3]{%
+  \begin{figure}[H]\centering
+  \includegraphics[width=#2\linewidth]{#1}
+  \caption{#3}\end{figure}}
 
 \begin{document}
 
 \maketitle
 \tableofcontents
 
-\section{Цель работы}
-% Опишите цель работы.
-
-\section{Задание}
-% Приведите условие задания.
-
+\input{sections/task}
 \section{Ход работы}
-% Добавьте описание решения, рисунки, таблицы и листинги.
-
-\section{Вывод}
-% Сформулируйте полученные результаты.
+\input{sections/system}
+\input{sections/model}
+\input{sections/properties}
+\input{sections/automation}
+\input{sections/results}
+\input{sections/conclusion}
+\clearpage
+\input{sections/sources}
 
 \end{document}

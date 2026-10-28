@@ -1,0 +1,217 @@
+{
+  "date": "2026-10-28",
+  "source_run": "run_jpr0r70m",
+  "spin": "6.5.1",
+  "gcc": "16.2.0",
+  "python": "3.12.14",
+  "automated": {
+    "total": 15,
+    "PASS": 14,
+    "FAIL": 0,
+    "ERROR": 1
+  },
+  "completed": {
+    "total": 15,
+    "PASS": 15,
+    "FAIL": 0,
+    "ERROR": 0
+  },
+  "manual_command": [
+    "pan_ltl.exe",
+    "-a",
+    "-N",
+    "p12_transaction_progress",
+    "-m1000000",
+    "-w22",
+    "-b"
+  ],
+  "note": "The completed aggregate includes the separate p12 run. It is not the exit status or summary of run.py.",
+  "source_sha256": {
+    "modbus.pml": "31372e8c8cfe372a31dce87d32735e771566d0475a8c5c327dc9dbb493c1ec6d",
+    "properties.pml": "def3d47d712fac7224f587249823e56b07fd56a05e24c7cb303fe27983b614f0",
+    "run.py": "98210adcd5260491d3d656d658768f056d5386d03d9ecf7fa4a1c9c412d19968",
+    "config.json": "9cb0b1925af898b966156f012e031d6d42e4dcc6a2156193ce873f632c0f909d"
+  },
+  "records": [
+    {
+      "name": "structure",
+      "status": "PASS",
+      "mode": "structure",
+      "manual": false,
+      "states": 14552302,
+      "depth": 110960,
+      "transitions": 22782792,
+      "seconds": 43.1,
+      "memory_mb": 1078.836,
+      "source_log": "structure.log"
+    },
+    {
+      "name": "p01_crc_ignored",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 62.3,
+      "memory_mb": 1207.937,
+      "source_log": "p01_crc_ignored.log"
+    },
+    {
+      "name": "p02_absent_slave",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 69.3,
+      "memory_mb": 1207.937,
+      "source_log": "p02_absent_slave.log"
+    },
+    {
+      "name": "p03_broadcast_silent",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 74.7,
+      "memory_mb": 1207.937,
+      "source_log": "p03_broadcast_silent.log"
+    },
+    {
+      "name": "p04_broadcast_written",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 74,
+      "memory_mb": 1207.937,
+      "source_log": "p04_broadcast_written.log"
+    },
+    {
+      "name": "p05_addressed_write",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 64.7,
+      "memory_mb": 1207.937,
+      "source_log": "p05_addressed_write.log"
+    },
+    {
+      "name": "p06_write_isolation",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 70.4,
+      "memory_mb": 1207.937,
+      "source_log": "p06_write_isolation.log"
+    },
+    {
+      "name": "p07_normal_response",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 67,
+      "memory_mb": 1207.937,
+      "source_log": "p07_normal_response.log"
+    },
+    {
+      "name": "p08_illegal_function",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 72.4,
+      "memory_mb": 1207.937,
+      "source_log": "p08_illegal_function.log"
+    },
+    {
+      "name": "p09_illegal_register",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 66.9,
+      "memory_mb": 1207.937,
+      "source_log": "p09_illegal_register.log"
+    },
+    {
+      "name": "p10_write_authorized",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 69.2,
+      "memory_mb": 1207.937,
+      "source_log": "p10_write_authorized.log"
+    },
+    {
+      "name": "p11_single_response",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 68.7,
+      "memory_mb": 1207.937,
+      "source_log": "p11_single_response.log"
+    },
+    {
+      "name": "p12_transaction_progress",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": true,
+      "states": 28849450,
+      "depth": 194839,
+      "transitions": 92211294,
+      "seconds": 214,
+      "memory_mb": 2358.511,
+      "source_log": "p12_manual.log"
+    },
+    {
+      "name": "p13_completion_clean",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 63.4,
+      "memory_mb": 1207.937,
+      "source_log": "p13_completion_clean.log"
+    },
+    {
+      "name": "p14_invalid_broadcast",
+      "status": "PASS",
+      "mode": "LTL",
+      "manual": false,
+      "states": 14552302,
+      "depth": 194839,
+      "transitions": 22782792,
+      "seconds": 62,
+      "memory_mb": 1207.937,
+      "source_log": "p14_invalid_broadcast.log"
+    }
+  ]
+}
