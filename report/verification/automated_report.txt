@@ -1,16 +1,16 @@
-[PASS] structure: состояний 14552302, глубина 110960, ошибок 0
-[PASS] p01_crc_ignored: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p02_absent_slave: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p03_broadcast_silent: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p04_broadcast_written: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p05_addressed_write: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p06_write_isolation: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p07_normal_response: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p08_illegal_function: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p09_illegal_register: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p10_write_authorized: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p11_single_response: состояний 14552302, глубина 194839, ошибок 0
-[ERROR] p12_transaction_progress: Команда не закончилась за 180 с: C:\Users\Dafte\OneDrive\Documents\University\MNiBVS\promella_memes\verification_results\run_jpr0r70m\p12_transaction_progress.log; см. p12_transaction_progress.log
-[PASS] p13_completion_clean: состояний 14552302, глубина 194839, ошибок 0
-[PASS] p14_invalid_broadcast: состояний 14552302, глубина 194839, ошибок 0
-ИТОГ: всего 15; PASS=14, FAIL=0, ERROR=1.
+[PASS] structure: состояний 22782712, глубина 179270, ошибок 0
+[PASS] p01_crc_ignored: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p02_absent_slave: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p03_broadcast_silent: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p04_broadcast_written: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p05_addressed_write: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p06_write_isolation: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p07_normal_response: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p08_illegal_function: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p09_illegal_register: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p10_write_authorized: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p11_single_response: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p12_transaction_progress: состояний 45128020, глубина 310296, ошибок 0
+[PASS] p13_completion_clean: состояний 22782712, глубина 310296, ошибок 0
+[PASS] p14_invalid_broadcast: состояний 22782712, глубина 310296, ошибок 0
+ИТОГ: всего 15; PASS=15, FAIL=0, ERROR=0.

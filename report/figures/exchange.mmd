@@ -3,14 +3,14 @@ sequenceDiagram
     participant S1 as Slave 1
     participant S2 as Slave 2
     participant S3 as Slave 3
-    Note over M,S3: Запрос: адрес 2, FC06, регистр 0, значение 1, CRC верна
+    Note over M,S3: Запрос: адрес 2, FC06<br/>Регистр 0 = 1, CRC верна
     M->>S1: Копия запроса
     M->>S2: Копия запроса
     M->>S3: Копия запроса
     Note over S1: Чужой адрес
     S1-->>M: Служебное уведомление done
     Note over S2: Запись регистра 0
-    S2-->>M: Ответ в slave_responses
+    S2->>M: Ответ в slave_responses
     S2-->>M: Служебное уведомление done
     Note over S3: Чужой адрес
     S3-->>M: Служебное уведомление done

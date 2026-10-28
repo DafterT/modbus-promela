@@ -5,6 +5,7 @@ mtype = {
     MASTER_TIMEOUT, MASTER_BROADCAST_DONE
 };
 mtype master_state = MASTER_PREPARING;
+
 byte slave_address;
 byte function_code;
 byte register_address;

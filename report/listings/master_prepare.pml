@@ -10,6 +10,7 @@ slave_processed[1] = false;
 slave_processed[2] = false;
 slave_processed[3] = false;
 responses_sent = 0;
+
 previous_register_0[1] = holding_register_0[1];
 previous_register_0[2] = holding_register_0[2];
 previous_register_0[3] = holding_register_0[3];

@@ -37,8 +37,7 @@ if
                 }
             fi
         fi
-    :: else ->
-        printf("Slave %d: ignored (bad CRC)\n", slave_id)
+    :: else -> skip
     fi
 :: else -> skip
 fi;

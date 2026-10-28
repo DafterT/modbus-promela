@@ -1,6 +1,7 @@
 slave_done?true;
 slave_done?true;
 slave_done?true;
+
 if
 :: (slave_address == 0) ->
     master_state = MASTER_BROADCAST_DONE;

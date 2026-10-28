@@ -1,1 +1,0 @@
-pan_ltl.exe -a -N p12_transaction_progress -m1000000 -w22 -b
