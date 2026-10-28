@@ -37,10 +37,12 @@
     response_register_address == 0 && response_register_value == 0 && \
     response_exception_code == code)
 
-// 1. Ошибочная CRC: нет записи и ответа, Master получает тайм-аут
+// 1. Ошибочная CRC: нет записи и ответа; broadcast завершён, иначе тайм-аут
 ltl p01_crc_ignored {
     [] ((finished && !crc_ok) ->
-        (master_state == MASTER_TIMEOUT && responses_sent == 0 && no_writes && all_unchanged))
+        (responses_sent == 0 && no_writes && all_unchanged &&
+            ((slave_address == 0 && master_state == MASTER_BROADCAST_DONE) ||
+             (slave_address != 0 && master_state == MASTER_TIMEOUT))))
 }
 
 // 2. Отсутсвующий slave 4: нет записи и ответа, Master получает тайм-аут
@@ -55,10 +57,10 @@ ltl p03_broadcast_silent {
         (responses_sent == 0 && len(slave_responses) == 0))
 }
 
-// 4. Broadcast записан всеми тремя Slave
+// 4. Корректный broadcast записан всеми тремя Slave
 ltl p04_broadcast_written {
-    [] ((finished && slave_address == 0) ->
-        (master_state == MASTER_BROADCAST_DONE && valid_write &&
+    [] ((finished && slave_address == 0 && valid_write) ->
+        (master_state == MASTER_BROADCAST_DONE &&
             slave_write_performed[1] && slave_write_performed[2] && slave_write_performed[3] && 
             written(1) && written(2) && written(3)))
 }
@@ -115,10 +117,17 @@ ltl p12_transaction_progress {
 }
 
 // 13. Результат фиксируется после всех обработчиков, каналы уже пусты
-ltl p14_completion_clean {
+ltl p13_completion_clean {
     [] (finished ->
         (slave_processed[1] && slave_processed[2] && slave_processed[3] &&
             len(slave_requests[0]) == 0 && len(slave_requests[1]) == 0 &&
             len(slave_requests[2]) == 0 && len(slave_done) == 0 &&
             len(slave_responses) == 0))
+}
+
+// 14. Ошибочный broadcast завершён без ответа и изменений регистров
+ltl p14_invalid_broadcast {
+    [] ((finished && slave_address == 0 && !valid_write) ->
+        (master_state == MASTER_BROADCAST_DONE && responses_sent == 0 &&
+            len(slave_responses) == 0 && no_writes && all_unchanged))
 }

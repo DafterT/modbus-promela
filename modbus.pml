@@ -73,12 +73,15 @@ proctype Master()
             previous_register_1[2] = holding_register_1[2];
             previous_register_1[3] = holding_register_1[3];
 
-            // Выбираем параметры корректного адресного FC06
+            // Выбираем получателя
             if
+            :: slave_address = 0        // Broadcast
             :: slave_address = 1
             :: slave_address = 2
             :: slave_address = 3
+            :: slave_address = 4        // Отсутствующий Slave
             fi;
+            // Подготавливаем корректную запись FC06
             if
             :: register_address = 0
             :: register_address = 1
@@ -90,12 +93,10 @@ proctype Master()
             function_code = FC06;
             crc_ok = true;
 
-            // Выбираем одну из веток
+            // Оставляем запрос корректным или добавляем одну ошибку.
             if
-            :: skip                     // Корректная адресная запись
-            :: slave_address = 0        // Корректная broadcast-запись
+            :: skip                     // Без ошибки
             :: crc_ok = false           // Ошибка CRC
-            :: slave_address = 4        // Отсутствующий Slave
             :: register_address = 2     // Несуществующий регистр
             :: function_code = FC03     // Неподдерживаемая функция
             fi;
