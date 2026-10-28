@@ -1,0 +1,12 @@
+# latexmk config (TeX Live for Windows).
+#   latexmk            — собрать все *.tex в этой папке
+#   latexmk main.tex   — собрать отчёт
+#   latexmk -pvc main  — пересобирать при каждом сохранении
+#   latexmk -c         — удалить вспомогательные файлы
+# Сборка выполняется в build/, готовый PDF копируется рядом с main.tex.
+$pdf_mode = 5;              # XeLaTeX
+$out_dir  = 'build';
+$out2_dir = '.';
+@out2_exts = ('pdf');       # В report/ копируется только PDF, без логов и SyncTeX.
+$xelatex  = 'xelatex -synctex=1 -interaction=nonstopmode -file-line-error -halt-on-error %O %S';
+@default_files = glob('*.tex');

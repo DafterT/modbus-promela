@@ -9,3 +9,14 @@
 # Служебные файлы Python.
 __pycache__/
 *.py[cod]
+
+# Результаты сборки и вспомогательные файлы LaTeX.
+/report/build/
+/report/*.aux
+/report/*.log
+/report/*.out
+/report/*.toc
+/report/*.fls
+/report/*.fdb_latexmk
+/report/*.synctex.gz
+/report/*.xdv
